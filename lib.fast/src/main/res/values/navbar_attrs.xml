@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="NavBar">
+        <attr name="showLeftIcon" format="boolean"/>
+        <attr name="showSenLeftIcon" format="boolean"/>
+        <attr name="showTitle" format="boolean"/>
+        <attr name="showRightText" format="boolean"/>
+        <attr name="showRightIcon" format="boolean"/>
+        <attr name="leftIcon" format="reference"/>
+        <attr name="leftSenIcon" format="reference"/>
+        <attr name="rightIcon" format="reference"/>
+        <attr name="backgroundColor" format="color"/>
+        <attr name="title" format="string"/>
+        <attr name="titleColor" format="color"/>
+        <attr name="titleSize" format="dimension"/>
+        <attr name="rightText" format="string"/>
+        <attr name="rightTextSize" format="dimension"/>
+        <attr name="rightTxtColor" format="color"/>
+    </declare-styleable>
+
+</resources>

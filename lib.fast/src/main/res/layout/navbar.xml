@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/navigationbar_height"
+                android:background="@color/nav_bgcolor">
+
+    <ImageButton
+        android:id="@+id/left_btn"
+        android:layout_width="@dimen/navigationbar_height"
+        android:layout_height="@dimen/navigationbar_height"
+        android:paddingLeft="-2.8dp"
+        android:paddingRight="-2.8dp"
+        android:src="@drawable/ic_back"/>
+
+    <ImageButton
+        android:id="@+id/left_sen_btn"
+        android:layout_width="30dp"
+        android:layout_height="@dimen/navigationbar_height"
+        android:layout_marginLeft="-8dp"
+        android:layout_toRightOf="@id/left_btn"
+        android:gravity="center"
+        android:src="@drawable/ic_close_normal"
+        android:visibility="invisible"/>
+
+    <FrameLayout
+        android:id="@+id/right"
+        android:layout_width="77dp"
+        android:layout_height="@dimen/navigationbar_height"
+        android:layout_alignParentRight="true">
+
+        <ImageButton
+            android:id="@+id/right_icon_ibtn"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/navigationbar_height"
+            android:layout_gravity="right"
+            android:gravity="center"
+            android:minWidth="@dimen/navigationbar_height"
+            android:visibility="invisible"/>
+
+        <Button
+            android:id="@+id/right_txt_btn"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_height="@dimen/navigationbar_height"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="right|center_vertical"
+            android:minWidth="@dimen/navigationbar_height"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/navbar_txtcolor"
+            android:textSize="@dimen/text_small"
+            android:visibility="invisible"/>
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/bar_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@id/right"
+        android:layout_toRightOf="@id/left_sen_btn"/>
+
+    <View
+        android:id="@+id/bar_end_line"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:background="@color/nav_end_line"
+        android:layout_height="0.5dp"/>
+
+</RelativeLayout>

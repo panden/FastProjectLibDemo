@@ -1,9 +1,11 @@
 package com.sunday.common.activity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 
+import com.sunday.common.activity.callback.ActivityLifeListener;
 import com.sunday.common.cache.ACache;
 import com.sunday.common.config.IBuildConfig;
 import com.sunday.common.logger.Logger;
@@ -34,6 +36,8 @@ public abstract class BaseApplication extends LitePalApplication implements Thre
 
     private RequestQueue mRequestQueue;
 
+    private ActivityLifeListener mLifeListener;
+
     private static BaseApplication instance;
 
     public synchronized static BaseApplication getInstance() {
@@ -57,6 +61,8 @@ public abstract class BaseApplication extends LitePalApplication implements Thre
     //App进来进行的一些初始化操作
     private void onAppInit() {
         instance = this;
+        mLifeListener = new ActivityLifeListener();
+        registerActivityLifecycleCallbacks(mLifeListener);
         Logger.init(getBuildConfig().getAppName()).hideThreadInfo().setMethodCount(3).setMethodOffset(2);
         Thread.setDefaultUncaughtExceptionHandler(this);
         android.util.Log.d(TAG, "BaseApplication onCreate");
@@ -129,4 +135,21 @@ public abstract class BaseApplication extends LitePalApplication implements Thre
         }
     }
 
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        unregisterActivityLifecycleCallbacks(mLifeListener);
+        mLifeListener.destory();
+        mLifeListener = null;
+    }
+
+    /**
+     * 获取当前显示的Activity
+     */
+    public Activity getCurrentActivity() {
+        if (mLifeListener != null) {
+            return mLifeListener.getCurrentActivity();
+        }
+        return null;
+    }
 }

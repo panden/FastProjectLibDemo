@@ -33,9 +33,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected final String TAG = getClass().getSimpleName();
 
-    /**
-     * 常用成员变量
-     */
     protected Context mContext;
     private InputMethodHelper mInputMethodHelper;
 
@@ -93,11 +90,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public NavBar getTitleBar(){
+        return mTitleBar;
+    }
 
     /**
      * 退出Activity
      */
-    public void back(View v) {
+    public void back() {
         finish();
     }
 

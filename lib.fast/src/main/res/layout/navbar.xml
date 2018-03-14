@@ -10,6 +10,7 @@
         android:layout_height="@dimen/navigationbar_height"
         android:paddingLeft="-2.8dp"
         android:paddingRight="-2.8dp"
+        android:background="@drawable/button_selector_back"
         android:src="@drawable/ic_back"/>
 
     <ImageButton
@@ -20,6 +21,7 @@
         android:layout_toRightOf="@id/left_btn"
         android:gravity="center"
         android:src="@drawable/ic_close_normal"
+        android:background="@drawable/button_selector_back"
         android:visibility="invisible"/>
 
     <FrameLayout
@@ -35,6 +37,7 @@
             android:layout_gravity="right"
             android:gravity="center"
             android:minWidth="@dimen/navigationbar_height"
+            android:background="@drawable/button_selector_back"
             android:visibility="invisible"/>
 
         <Button
@@ -50,6 +53,7 @@
             android:singleLine="true"
             android:textColor="@color/navbar_txtcolor"
             android:textSize="@dimen/text_small"
+            android:background="@drawable/button_selector_back"
             android:visibility="invisible"/>
 
     </FrameLayout>
@@ -58,6 +62,7 @@
         android:id="@+id/bar_title"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:layout_toLeftOf="@id/right"
         android:layout_toRightOf="@id/left_sen_btn"/>
 

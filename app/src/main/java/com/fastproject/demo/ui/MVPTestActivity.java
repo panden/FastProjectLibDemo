@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.fastproject.demo.R;
 import com.sunday.common.activity.BaseMVPActivity;
+import com.sunday.common.activity.view.NavBar;
 
 public class MVPTestActivity extends BaseMVPActivity<TestPresenter> implements View.OnClickListener{
 
@@ -33,9 +34,18 @@ public class MVPTestActivity extends BaseMVPActivity<TestPresenter> implements V
     }
 
     @Override
+    protected void initData() {
+        super.initData();
+        getTitleBar().setTitle("MVP测试");
+        getTitleBar().showRightIcon();
+        getTitleBar().setRightImageResource(R.drawable.ic_close_normal);
+    }
+
+    @Override
     protected void initListener() {
         super.initListener();
         getDataBtn.setOnClickListener(this);
+        getTitleBar().setClickListener(mNavBarOnClickListener);
     }
 
     @Override
@@ -46,6 +56,28 @@ public class MVPTestActivity extends BaseMVPActivity<TestPresenter> implements V
                 break;
         }
     }
+
+    NavBar.NavBarOnClickListener mNavBarOnClickListener = new NavBar.NavBarOnClickListener() {
+        @Override
+        public void onLeftIconClick(View view) {
+            back();
+        }
+
+        @Override
+        public void onLeftSenIconClick(View view) {
+
+        }
+
+        @Override
+        public void onRightIconClick(View view) {
+            back();
+        }
+
+        @Override
+        public void onRightTxtClick(View view) {
+
+        }
+    };
 
     public void showMsgText(String msg){
         mMsgTv.setText(msg);

@@ -29,6 +29,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     @Override
     protected void initData() {
+        getTitleBar().setTitle("Fast Project");
     }
 
     @Override

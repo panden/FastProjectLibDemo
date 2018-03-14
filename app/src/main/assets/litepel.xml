@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--litepal数据库配置参考：https://www.jianshu.com/p/bc68e763c7a2-->
+<litepal>
+    <dbname value="dbname" ></dbname>
+
+    <version value="1" ></version>
+
+    <list>
+
+        <!--<mapping class="com.example.databasetest.model.News"></mapping>-->
+    </list>
+</litepal>

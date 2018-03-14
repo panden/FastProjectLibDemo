@@ -1,5 +1,7 @@
 package com.sunday.common.mvp;
 
+import android.database.sqlite.SQLiteDatabase;
+
 import com.sunday.common.activity.BaseApplication;
 import com.sunday.common.cache.ACache;
 import com.sunday.common.volley.AuthFailureError;
@@ -7,6 +9,8 @@ import com.sunday.common.volley.Request;
 import com.sunday.common.volley.RequestQueue;
 import com.sunday.common.volley.Response;
 import com.sunday.common.volley.toolbox.StringRequest;
+
+import org.litepal.LitePal;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,8 +49,11 @@ public class ModelImpl implements IModel {
         return BaseApplication.getInstance().getCache();
     }
 
-    protected void getDB(){
-        //获取数据库操作
+    /**获取数据库操作(LitePal:<a>https://www.jianshu.com/p/bc68e763c7a2</a>)
+     * 数据库映射关系在asset/litepal.xml中
+     */
+    protected SQLiteDatabase getDB(){
+        return LitePal.getDatabase();
     }
 
     protected void readFile(){

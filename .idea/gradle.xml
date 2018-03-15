@@ -9,8 +9,10 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/lib.ble" />
             <option value="$PROJECT_DIR$/lib.fast" />
             <option value="$PROJECT_DIR$/lib.qrcode" />
+            <option value="$PROJECT_DIR$/lib.umshare" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

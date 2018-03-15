@@ -23,6 +23,10 @@ public abstract class PresenterImpl<V extends IView, M extends IModel> implement
     @Override
     public void detatchView() {
         mIView = null;
+        if(mIModel != null){
+            mIModel.onRelease();
+            mIModel = null;
+        }
     }
 
     public V getView() {

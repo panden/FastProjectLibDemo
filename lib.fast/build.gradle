@@ -21,29 +21,20 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
+    //noinspection GradleCompatible
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.squareup.picasso:picasso:2.5.2'
     /**retrofit2*/
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
-    /**alipaySdk*/
-    compile files('libs/alipaySdk-20160809.jar')
-    /**bee支付:https://www.beecloud.cn/*/
-    compile files('libs/beecloud-2.9.1.jar')
-    /**个推：http://www.getui.com/cn/index.html*/
-    compile files('libs/GetuiSDK2.10.2.0.jar')
     compile files('libs/json_simple-1.1.jar')
-    compile files('libs/libammsdk.jar')
-    compile files('libs/SocialSDK_WeChat_Simplify.jar')
-    compile files('libs/umeng_social_api.jar')
-    compile files('libs/umeng_social_net.jar')
-    compile files('libs/umeng_social_shareview.jar')
-    compile files('libs/umeng_social_tool.jar')
-    compile files('libs/UPPayAssistEx.jar')
     compile 'com.android.support:multidex:1.0.0'
     /**litepal数据库*/
+    compile files('libs/litepal-1.6.1.jar')
     //网络请求库
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
-    implementation files('libs/litepal-1.6.1.jar')
+    //ButterKnife
+    compile 'com.jakewharton:butterknife:8.8.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }

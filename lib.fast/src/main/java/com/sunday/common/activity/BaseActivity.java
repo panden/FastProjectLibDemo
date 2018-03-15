@@ -12,18 +12,13 @@ import android.widget.EditText;
 
 import com.sunday.common.R;
 import com.sunday.common.activity.view.NavBar;
-import com.sunday.common.activity.view.tool.InputMethodHelper;
-import com.sunday.common.activity.view.tool.LoadingProgressHelper;
+import com.sunday.common.activity.tool.InputMethodHelper;
+import com.sunday.common.activity.tool.LoadingProgressHelper;
 import com.sunday.common.cache.ACache;
 import com.sunday.common.event.EventBus;
 import com.sunday.common.utils.ToastUtils;
-import com.sunday.common.volley.AuthFailureError;
-import com.sunday.common.volley.Request;
-import com.sunday.common.volley.Response;
-import com.sunday.common.volley.toolbox.StringRequest;
 
-import java.util.HashMap;
-import java.util.Map;
+import butterknife.ButterKnife;
 
 
 /**
@@ -58,6 +53,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         bodyStub.setLayoutResource(layoutResID);
         bodyView = bodyStub.inflate();
         init();
+        ButterKnife.bind(this);
     }
 
     private void init() {
@@ -139,18 +135,6 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     protected void send(Object event) {
         EventBus.getDefault().post(event);
-    }
-
-    protected void post(String url, final HashMap<String, String> maps,
-                        Response.ErrorListener errorListener,
-                        Response.Listener response) {
-        StringRequest request = new StringRequest(Request.Method.POST, url, response, errorListener) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                return maps;
-            }
-        };
-        BaseApplication.getInstance().getRequestQueue().add(request);
     }
 
     /**

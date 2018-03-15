@@ -10,6 +10,7 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/lib.fast" />
+            <option value="$PROJECT_DIR$/lib.qrcode" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

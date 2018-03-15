@@ -1,1 +1,1 @@
-include ':app', ':lib.fast'
+include ':app', ':lib.fast', ':lib.qrcode'

@@ -7,16 +7,8 @@ import java.io.Serializable;
  */
 public class ResultDO<T> implements Serializable {
 
-    /**
-     * success : true
-     * type : sms_sent_success
-     * message : 短信验证码发送成功，请注意查收
-     */
     private boolean success;
-    private String type;
-    private boolean status;
     private String message;
-    private String code;
 
     private T data;
 
@@ -30,13 +22,6 @@ public class ResultDO<T> implements Serializable {
         this.success = success;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
 
     public String getMessage() {
         return message;
@@ -52,23 +37,6 @@ public class ResultDO<T> implements Serializable {
 
     public void setData(T data) {
         this.data = data;
-    }
-
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
     }
 
 }

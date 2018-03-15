@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/FastProjectLibDemo.iml" filepath="$PROJECT_DIR$/FastProjectLibDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib.fast/lib.fast.iml" filepath="$PROJECT_DIR$/lib.fast/lib.fast.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib.qrcode/lib.qrcode.iml" filepath="$PROJECT_DIR$/lib.qrcode/lib.qrcode.iml" />
     </modules>
   </component>
 </project>

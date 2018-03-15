@@ -1,1 +1,1 @@
-include ':app', ':lib.fast', ':lib.qrcode', ':lib.umshare', ':lib.ble'
+include ':app', ':lib.fast', ':lib.qrcode', ':lib.umshare', ':lib.ble', ':lib.widget'

@@ -8,6 +8,7 @@
       <module fileurl="file://$PROJECT_DIR$/lib.fast/lib.fast.iml" filepath="$PROJECT_DIR$/lib.fast/lib.fast.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib.qrcode/lib.qrcode.iml" filepath="$PROJECT_DIR$/lib.qrcode/lib.qrcode.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib.umshare/lib.umshare.iml" filepath="$PROJECT_DIR$/lib.umshare/lib.umshare.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib.widget/lib.widget.iml" filepath="$PROJECT_DIR$/lib.widget/lib.widget.iml" />
     </modules>
   </component>
 </project>

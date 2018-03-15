@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/lib.fast" />
             <option value="$PROJECT_DIR$/lib.qrcode" />
             <option value="$PROJECT_DIR$/lib.umshare" />
+            <option value="$PROJECT_DIR$/lib.widget" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

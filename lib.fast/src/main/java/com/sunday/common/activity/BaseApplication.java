@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
+import android.util.Log;
 
+import com.squareup.leakcanary.LeakCanary;
 import com.sunday.common.activity.callback.ActivityLifeListener;
 import com.sunday.common.cache.ACache;
 import com.sunday.common.config.IBuildConfig;
@@ -44,12 +46,28 @@ public abstract class BaseApplication extends LitePalApplication implements Thre
     //App进来进行的一些初始化操作
     private void onAppInit() {
         instance = this;
+
+        //网络框架初始化
         HttpFactory.initFactory(this, getBuildConfig().getBaseUrl());
+
+        //Activity生命周期监听
         mLifeListener = new ActivityLifeListener();
         registerActivityLifecycleCallbacks(mLifeListener);
+
+        //初始化Logger
         Logger.init(getBuildConfig().getAppName()).hideThreadInfo().setMethodCount(3).setMethodOffset(2);
+
+        //异常捕获
         Thread.setDefaultUncaughtExceptionHandler(this);
-        android.util.Log.d(TAG, "BaseApplication onCreate");
+        Log.d(TAG, "BaseApplication onCreate");
+
+        //LeakCanary初始化
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
     }
 
 

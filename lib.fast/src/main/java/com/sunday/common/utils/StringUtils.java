@@ -1,7 +1,6 @@
 package com.sunday.common.utils;
 
 import android.text.TextUtils;
-import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -13,6 +12,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Administrator on 2015/6/23.
@@ -31,6 +32,26 @@ public class StringUtils {
         String telRegex = "[1][3578]\\d{9}";//"[1]"代表第1位为数字1，"[358]"代表第二位可以为3、5、8中的一个，"\\d{9}"代表后面是可以是0～9的数字，有9位。
         if (TextUtils.isEmpty(mobiles)) return false;
         else return mobiles.matches(telRegex);
+    }
+
+    /**
+     * 判断邮编
+     */
+    public static boolean isZipNO(String zipString){
+        if(TextUtils.isEmpty(zipString))return false;
+        String str = "^[1-9][0-9]{5}$";
+        return Pattern.compile(str).matcher(zipString).matches();
+    }
+
+    /**
+     * 判断邮箱是否合法
+     */
+    public static boolean isEmail(String email){
+        if (TextUtils.isEmpty(email)) return false;
+        //Pattern p = Pattern.compile("\\w+@(\\w+.)+[a-z]{2,3}"); //简单匹配
+        Pattern p =  Pattern.compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");//复杂匹配
+        Matcher m = p.matcher(email);
+        return m.matches();
     }
 
     public static String listToString(List<String> stringList) {

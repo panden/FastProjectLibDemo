@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
           package="com.fastproject.demo">
+
+    <uses-sdk tools:overrideLibrary="cn.bingoogolapple.photopicker,cn.bingoogolapple.androidcommon.adapter" />
 
     <application
         android:allowBackup="true"
@@ -18,6 +21,12 @@
         </activity>
         <activity android:name=".ui.MVPTestActivity">
         </activity>
+
+        <activity android:name=".ui.TestScanActivity" />
+
+        <activity
+            android:name=".ui.TestGeneratectivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

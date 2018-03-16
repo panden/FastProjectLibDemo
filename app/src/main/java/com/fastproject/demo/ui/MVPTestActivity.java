@@ -31,6 +31,7 @@ public class MVPTestActivity extends BaseMVPActivity<TestPresenter> implements V
         super.initView();
         mMsgTv = findViewById(R.id.msg_tv);
         getDataBtn = findViewById(R.id.get_data);
+        getTitleBar().setBackGroundColor(getResources().getColor(R.color.colorAccent));
     }
 
     @Override

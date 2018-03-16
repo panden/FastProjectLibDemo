@@ -55,7 +55,7 @@ public abstract class BaseApplication extends LitePalApplication implements Thre
         registerActivityLifecycleCallbacks(mLifeListener);
 
         //初始化Logger
-        Logger.init(getBuildConfig().getAppName()).hideThreadInfo().setMethodCount(3).setMethodOffset(2);
+        Logger.init(getBuildConfig().getAppName(this)).hideThreadInfo().setMethodCount(3).setMethodOffset(2);
 
         //异常捕获
         Thread.setDefaultUncaughtExceptionHandler(this);

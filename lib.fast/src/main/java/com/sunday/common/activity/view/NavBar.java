@@ -1,5 +1,6 @@
 package com.sunday.common.activity.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
@@ -16,6 +17,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sunday.common.R;
+import com.sunday.common.utils.StatusBarUtil;
 
 /**
  * 标题栏封装
@@ -29,6 +31,7 @@ public class NavBar extends RelativeLayout implements View.OnClickListener {
     private TextView mTitle;
     private View mRootView;
     private View endLine;
+    private boolean mAutoSetStatusBarColor = true;
 
     public void setClickListener(NavBarOnClickListener clickListener) {
         mClickListener = clickListener;
@@ -303,8 +306,15 @@ public class NavBar extends RelativeLayout implements View.OnClickListener {
         rightIconIbtn.setVisibility(View.VISIBLE);
     }
 
+    public void setAutoSetStatusBarColor(boolean autoSet){
+        mAutoSetStatusBarColor = autoSet;
+    }
+
     public void setBackGroundColor(int color) {
         mRootView.setBackgroundColor(color);
+        if(mAutoSetStatusBarColor){
+            StatusBarUtil.setColor((Activity) getContext(), color);
+        }
     }
 
     public void setBackGroundColor(String color) {
@@ -315,6 +325,9 @@ public class NavBar extends RelativeLayout implements View.OnClickListener {
             return;
         }
         mRootView.setBackgroundColor(backgroundColor);
+        if(mAutoSetStatusBarColor){
+            StatusBarUtil.setColor((Activity) getContext(), backgroundColor);
+        }
     }
 
     @Override

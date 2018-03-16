@@ -30,5 +30,5 @@ public interface IBuildConfig {
     String getVersionName(Context context);
 
     /**获取App名称*/
-    String getAppName();
+    String getAppName(Context context);
 }

@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.fastproject.demo.MainActivity">
+    android:orientation="vertical">
 
     <Button
         android:id="@+id/mvp_btn"
@@ -19,5 +18,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="QRCode"/>
+
+    <Button
+        android:id="@+id/gqrcode_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Generate QRCode"/>
 
 </LinearLayout>

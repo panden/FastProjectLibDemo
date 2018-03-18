@@ -1,4 +1,4 @@
-package com.sunday.common.utils;
+package com.libwidget.text;
 
 import android.content.Context;
 import android.graphics.Bitmap;

@@ -1,14 +1,7 @@
-package com.sunday.common.utils;
+package com.libwidget.text;
 
 import android.text.TextPaint;
 import android.text.style.ClickableSpan;
-
-/**
- * @author lidajun
- * @email solidajun@gmail.com
- * @date 2017/6/1 23:31.
- * @desc: TouchableSpan
- */
 
 public abstract class TouchableSpan extends ClickableSpan {
     private boolean mIsPressed;

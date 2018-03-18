@@ -1,4 +1,4 @@
-package com.sunday.common.utils;
+package com.libwidget.text;
 
 import android.text.Spannable;
 import android.text.SpannableString;

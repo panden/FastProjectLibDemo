@@ -6,11 +6,7 @@ import android.content.SharedPreferences;
 
 import com.sunday.common.activity.BaseApplication;
 
-
-/**
- *
-
- */
+/**SharePreference帮助类*/
 public class SharePerferenceHelper {
     private SharedPreferences mSharedPreferences;
 
@@ -62,7 +58,5 @@ public class SharePerferenceHelper {
     public void removeKey(String key) {
         mSharedPreferences.edit().remove(key).apply();
     }
-
-
 
 }

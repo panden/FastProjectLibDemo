@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by Administrator on 2015/6/23.
  */
-public class ResultDO<T> implements Serializable {
+public class BaseResponse<T> implements Serializable {
 
     private boolean success;
     private String message;
@@ -21,7 +21,6 @@ public class ResultDO<T> implements Serializable {
     public void setSuccess(boolean success) {
         this.success = success;
     }
-
 
     public String getMessage() {
         return message;

@@ -13,8 +13,6 @@ import com.sunday.common.cache.ACache;
 import com.sunday.common.event.EventBus;
 import com.sunday.common.utils.ToastUtils;
 
-import butterknife.ButterKnife;
-
 /**
  * Created by siwei on 2015/6/9.
  */
@@ -33,7 +31,6 @@ public abstract class BaseFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         init(view);
-        ButterKnife.bind(this, view);
     }
 
     private void init(View view){

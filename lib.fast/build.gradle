@@ -34,11 +34,10 @@ dependencies {
     compile files('libs/litepal-1.6.1.jar')
     //网络请求库
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
-    //ButterKnife
-    compile 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
     //LeakCanary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+
+    //多渠道打包参考：http://blog.csdn.net/abc6368765/article/details/52786509
 }

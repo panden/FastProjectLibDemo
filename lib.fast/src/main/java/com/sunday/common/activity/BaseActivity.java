@@ -11,14 +11,12 @@ import android.view.Window;
 import android.widget.EditText;
 
 import com.sunday.common.R;
-import com.sunday.common.activity.view.NavBar;
 import com.sunday.common.activity.tool.InputMethodHelper;
 import com.sunday.common.activity.tool.LoadingProgressHelper;
+import com.sunday.common.activity.view.NavBar;
 import com.sunday.common.cache.ACache;
 import com.sunday.common.event.EventBus;
 import com.sunday.common.utils.ToastUtils;
-
-import butterknife.ButterKnife;
 
 
 /**
@@ -53,7 +51,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         bodyStub.setLayoutResource(layoutResID);
         bodyView = bodyStub.inflate();
         init();
-        ButterKnife.bind(this);
     }
 
     private void init() {

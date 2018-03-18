@@ -31,4 +31,5 @@ dependencies {
     compile 'pub.devrel:easypermissions:1.0.1'
     compile 'cn.bingoogolapple:bga-photopicker:1.2.8@aar'
     compile 'cn.bingoogolapple:bga-baseadapter:1.2.9@aar'
+    implementation project(':lib.widget')
 }

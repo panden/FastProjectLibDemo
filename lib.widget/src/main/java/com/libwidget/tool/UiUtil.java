@@ -1,4 +1,4 @@
-package com.sunday.common.utils;
+package com.libwidget.tool;
 
 import android.content.res.Resources;
 import android.util.TypedValue;
@@ -9,8 +9,6 @@ import android.view.View;
  * UI工具类
  */
 public class UiUtil {
-
-    public static double density = 1d;
 
     public static void setVisibility(View view, int visibility) {
         if (view != null && view.getVisibility() != visibility) {

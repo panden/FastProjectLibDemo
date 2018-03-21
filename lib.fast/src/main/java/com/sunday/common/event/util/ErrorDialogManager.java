@@ -228,7 +228,7 @@ public class ErrorDialogManager {
             if (tag == null) {
                 tag = EventBus.TAG;
             }
-            Log.i(tag, "Error dialog manager received exception", event.throwable);
+            Log.i(tag, "ERROR dialog manager received exception", event.throwable);
         }
     }
 

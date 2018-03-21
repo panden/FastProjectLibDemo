@@ -17,6 +17,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -30,6 +31,9 @@ public class HttpFactory {
     private static final long CACHE_SIZE = 1024 * 1024 * 10;//缓存的文件大小
     private static final int MOBILE_ENABLE_MAX_AGE = 60 * 60;//有网络时 设置缓存超时时间1个小时
     private static final int MOBILE_UNENABLE_MAX_STALE = 60 * 60 * 24;//无网络时，设置超时为1天
+    private static final int CONNECT_TIME = 10;//连接时长为10s
+    private static final int READ_TIME_OUT = 15;//读取超时时长为15s
+    private static final int WRITE_TIME_OUT = 20;//写入超时时长为20s
 
     public static void initFactory(@NonNull Context context, @NonNull String baseUrl) {
         instance = new HttpFactory(context, baseUrl);
@@ -50,9 +54,11 @@ public class HttpFactory {
                 .client(genericClient(context))
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build();
     }
 
+    /**创建接口服务*/
     public <T> T createApiService(Class<T> service) {
         return mRetrofit.create(service);
     }
@@ -60,10 +66,10 @@ public class HttpFactory {
     private OkHttpClient genericClient(final Context context) {
         File cacheFile = FileUtils.getAppHttpCacheDir(context);
         Cache cache = new Cache(cacheFile, CACHE_SIZE);
-        OkHttpClient httpClient = new OkHttpClient.Builder()
-                .connectTimeout(60, TimeUnit.SECONDS)
-                .readTimeout(20, TimeUnit.SECONDS)
-                .writeTimeout(20, TimeUnit.SECONDS)
+        OkHttpClient.Builder build = new OkHttpClient.Builder()
+                .connectTimeout(CONNECT_TIME, TimeUnit.SECONDS)
+                .readTimeout(READ_TIME_OUT, TimeUnit.SECONDS)
+                .writeTimeout(WRITE_TIME_OUT, TimeUnit.SECONDS)
                 .cache(cache)
                 .addNetworkInterceptor(new Interceptor() {
                     @Override
@@ -102,8 +108,9 @@ public class HttpFactory {
                                 .build();
                         return chain.proceed(request);
                     }
-                }).build();
+                });
 
+        OkHttpClient httpClient = build.build();
         return httpClient;
     }
 }

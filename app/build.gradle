@@ -10,6 +10,15 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    sourceSets {
+        main {
+            res.srcDirs = [
+                    'src/main/res/layouts/mvp',
+                    'src/main/res/layouts/qrcode',
+                    'src/main/res'
+            ]
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -17,6 +26,7 @@ android {
         }
     }
 }
+
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -31,5 +41,5 @@ dependencies {
     compile 'pub.devrel:easypermissions:1.0.1'
     compile 'cn.bingoogolapple:bga-photopicker:1.2.8@aar'
     compile 'cn.bingoogolapple:bga-baseadapter:1.2.9@aar'
-    implementation project(':lib.widget')
+    compile project(':lib.widget')
 }

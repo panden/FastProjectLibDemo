@@ -27,6 +27,7 @@ public abstract class PresenterImpl<V extends IView, M extends IModel> implement
             mIModel.onRelease();
             mIModel = null;
         }
+        onRelease();
     }
 
     public V getView() {
@@ -36,5 +37,8 @@ public abstract class PresenterImpl<V extends IView, M extends IModel> implement
     public M getModel() {
         return mIModel;
     }
+
+    /**释放数据的时候会被调用*/
+    protected void onRelease(){}
 
 }

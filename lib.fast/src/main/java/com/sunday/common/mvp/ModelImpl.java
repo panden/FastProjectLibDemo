@@ -15,7 +15,7 @@ import org.litepal.LitePal;
 
 public class ModelImpl implements IModel {
 
-
+    /**创建接口服务*/
     protected <T> T createRetorfitService(final Class<T> service) {
         return HttpFactory.instance().createApiService(service);
     }
@@ -28,20 +28,16 @@ public class ModelImpl implements IModel {
     }
 
     /**
-     * 获取数据库操作(LitePal:<a>https://www.jianshu.com/p/bc68e763c7a2</a>)
+     * 获取数据库操作(LitePal:https://www.jianshu.com/p/bc68e763c7a2)
      * 数据库映射关系在asset/litepal.xml中
      */
     protected SQLiteDatabase getDB() {
         return LitePal.getDatabase();
     }
 
-    protected void readFile() {
-        //读取文件
-    }
-
     @Override
     public void onRelease() {
-
+        //释放数据的时候会调用
     }
 
     //其余一些数据操作的封装....

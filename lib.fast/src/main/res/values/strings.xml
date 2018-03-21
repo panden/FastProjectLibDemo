@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Library</string>
-    <!-- Error View -->
     <string name="error_view_click_to_refresh">点击屏幕,重新加载</string>
     <string name="error_view_no_data">暂无内容</string>
     <string name="error_view_no_data_collect">抱歉，客官你还没有收藏</string>

@@ -17,7 +17,7 @@ import java.io.File;
  * 安装app helper
  */
 
-public class InstallAppHelper {
+public class AppUpdateHelper {
 
     public static final int REQ_PERMISSION_CODE_SDCARD = 0X111;
 
@@ -26,7 +26,7 @@ public class InstallAppHelper {
 
     private HeadImgSetHelper.SetListener mListener;
 
-    public InstallAppHelper(Activity activity) {
+    public AppUpdateHelper(Activity activity) {
         mActivity = activity;
     }
 

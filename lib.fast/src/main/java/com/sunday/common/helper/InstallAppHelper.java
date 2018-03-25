@@ -65,7 +65,6 @@ public class InstallAppHelper {
             } else {
                 //没有权限
             }
-            return;
         }
     }
 

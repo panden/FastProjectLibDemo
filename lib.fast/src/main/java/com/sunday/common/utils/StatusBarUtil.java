@@ -284,12 +284,49 @@ public class StatusBarUtil {
         // 内容布局不是 LinearLayout 时,设置padding top
         if (!(contentLayout instanceof LinearLayout) && contentLayout.getChildAt(1) != null) {
             contentLayout.getChildAt(1)
-                .setPadding(contentLayout.getPaddingLeft(), getStatusBarHeight(activity) + contentLayout.getPaddingTop(),
-                    contentLayout.getPaddingRight(), contentLayout.getPaddingBottom());
+                    .setPadding(contentLayout.getPaddingLeft(), getStatusBarHeight(activity) + contentLayout.getPaddingTop(),
+                            contentLayout.getPaddingRight(), contentLayout.getPaddingBottom());
         }
         // 设置属性
         setDrawerLayoutProperty(drawerLayout, contentLayout);
         addTranslucentView(activity, statusBarAlpha);
+    }
+
+    /**
+     * 为View增加StatusBar的高度
+     */
+    public static void addStatusBarHeight(Activity activity, View view) {
+        if (activity == null || view == null) return;
+        ViewGroup.LayoutParams params = view.getLayoutParams();
+        params.height = params.height + getStatusBarHeight(activity);
+        view.setLayoutParams(params);
+    }
+
+    /**
+     * 为view添加statusbar高度的margin top
+     */
+    public static void addStatusBarHeightMargin(Activity activity, View view) {
+        if (activity == null || view == null) return;
+        ViewGroup.LayoutParams params = view.getLayoutParams();
+        if (params instanceof ViewGroup.MarginLayoutParams) {
+            ViewGroup.MarginLayoutParams marginLayoutParams = (ViewGroup.MarginLayoutParams) params;
+            marginLayoutParams.setMargins(marginLayoutParams.leftMargin,
+                    marginLayoutParams.topMargin + getStatusBarHeight(activity),
+                    marginLayoutParams.rightMargin,
+                    marginLayoutParams.bottomMargin);
+            view.setLayoutParams(marginLayoutParams);
+        }
+    }
+
+    /**
+     * 为View添加statusbar高度的padding top
+     */
+    public static void addStatusBarHeightPadding(Activity activity, View view) {
+        if (activity == null || view == null) return;
+        view.setPadding(view.getPaddingLeft(),
+                view.getPaddingTop() + getStatusBarHeight(activity),
+                view.getPaddingRight(),
+                view.getPaddingRight());
     }
 
     /**
@@ -454,7 +491,7 @@ public class StatusBarUtil {
             }
             ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) needOffsetView.getLayoutParams();
             layoutParams.setMargins(layoutParams.leftMargin, layoutParams.topMargin + getStatusBarHeight(activity),
-                layoutParams.rightMargin, layoutParams.bottomMargin);
+                    layoutParams.rightMargin, layoutParams.bottomMargin);
             needOffsetView.setTag(TAG_KEY_HAVE_SET_OFFSET, true);
         }
     }
@@ -565,7 +602,7 @@ public class StatusBarUtil {
         // 绘制一个和状态栏一样高的矩形
         View statusBarView = new View(activity);
         LinearLayout.LayoutParams params =
-            new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight(activity));
+                new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight(activity));
         statusBarView.setLayoutParams(params);
         statusBarView.setBackgroundColor(calculateStatusColor(color, alpha));
         statusBarView.setId(FAKE_STATUS_BAR_VIEW_ID);
@@ -593,12 +630,12 @@ public class StatusBarUtil {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             activity.getWindow().setStatusBarColor(Color.TRANSPARENT);
             activity.getWindow()
-                .getDecorView()
-                .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+                    .getDecorView()
+                    .setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
             addFlagHW(activity);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             activity.getWindow()
-                .setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                    .setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
     }
 
@@ -628,7 +665,7 @@ public class StatusBarUtil {
         // 绘制一个和状态栏一样高的矩形
         View statusBarView = new View(activity);
         LinearLayout.LayoutParams params =
-            new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight(activity));
+                new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, getStatusBarHeight(activity));
         statusBarView.setLayoutParams(params);
         statusBarView.setBackgroundColor(Color.argb(alpha, 0, 0, 0));
         statusBarView.setId(FAKE_TRANSLUCENT_VIEW_ID);
@@ -671,26 +708,26 @@ public class StatusBarUtil {
     private static void addFlagHW(Activity activity) {
         // 因为EMUI3.1系统与这种沉浸式方案API有点冲突，会没有沉浸式效果。
         // 所以这里加了判断，EMUI3.1系统不清除FLAG_TRANSLUCENT_STATUS
-        if(isEMUI3_1()) {
+        if (isEMUI3_1()) {
             activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
     }
 
     private static boolean isEMUI3_1() {
-        if("HUAWEI".equalsIgnoreCase(Build.MANUFACTURER)) {
-            if("EmotionUI_3.1".equals(getEmuiVersion())) {
+        if ("HUAWEI".equalsIgnoreCase(Build.MANUFACTURER)) {
+            if ("EmotionUI_3.1".equals(getEmuiVersion())) {
                 return true;
             }
         }
         return false;
     }
 
-    private static String getEmuiVersion(){
+    private static String getEmuiVersion() {
         Class<?> classType = null;
         try {
             classType = Class.forName("android.os.SystemProperties");
             Method getMethod = classType.getDeclaredMethod("get", String.class);
-            return (String)getMethod.invoke(classType, "ro.build.version.emui");
+            return (String) getMethod.invoke(classType, "ro.build.version.emui");
         } catch (ClassNotFoundException e) {
         } catch (NoSuchMethodException e) {
         } catch (IllegalAccessException e) {

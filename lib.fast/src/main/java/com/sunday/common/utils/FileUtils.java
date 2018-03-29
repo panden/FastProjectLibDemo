@@ -2,6 +2,7 @@ package com.sunday.common.utils;
 
 import android.content.Context;
 import android.os.Environment;
+import android.text.TextUtils;
 
 import java.io.File;
 
@@ -33,10 +34,15 @@ public class FileUtils {
         return getAppCacheDir(context, IMG_CACHE_NAME);
     }
 
+    /**获取文件存放目录*/
+    public static File getAppFileDir(Context context){
+        return getAppFileDir(context, null);
+    }
 
     /**获取文件存放目录*/
     public static File getAppFileDir(Context context, String fileName){
         if(context == null)return null;
+        if(TextUtils.isEmpty(fileName))fileName="";
         File file = new File(hasSdCard(context) ? context.getExternalFilesDir(null) : context.getExternalFilesDir(null), fileName);
         if(!file.exists())file.mkdirs();
         return file;

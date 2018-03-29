@@ -10,7 +10,6 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -18,6 +17,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
 import com.sunday.common.utils.FileProvider7;
+import com.sunday.common.utils.FileUtils;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -29,7 +29,7 @@ import java.util.Locale;
  * 头像设置helper
  */
 
-public class HeadImgSetHelper {
+public class ImgSetHelper {
 
     private Activity mActivity;
     public static final int REQUEST_CODE_TAKE_PHOTO = 0x110;
@@ -38,14 +38,15 @@ public class HeadImgSetHelper {
     public static final int REQ_SELECT_PHOTO = 0x114;
 
     private String mCurrentPhotoPath;
-    private String fileName;
     private String photoPath;
+    private String takePhotoDir;
 
     private SetListener mListener;
 
-    public HeadImgSetHelper(Activity activity, String photoPath) {
+    public ImgSetHelper(Activity activity, String photoPath) {
         this.mActivity = activity;
         this.photoPath = photoPath;
+        takePhotoDir = FileUtils.getAppFileDir(activity).getPath()+"/takephoto";
     }
 
     public void setListener(SetListener listener){
@@ -54,8 +55,7 @@ public class HeadImgSetHelper {
 
 
     /**拍照并请求权限*/
-    public void takePhotoNoCompress(String fileName) {
-        this.fileName = fileName;
+    public void takePhotoNoCompress() {
         if (ContextCompat.checkSelfPermission(mActivity,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -65,7 +65,7 @@ public class HeadImgSetHelper {
                     REQ_PERMISSION_CODE_TAKE_PHOTO);
 
         } else {
-            takePhoto(fileName);
+            takePhoto();
         }
     }
 
@@ -113,17 +113,17 @@ public class HeadImgSetHelper {
         return path;
     }
 
-    private void takePhoto(String fileName) {
+    private void takePhoto() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(mActivity.getPackageManager()) != null) {
             String filename = new SimpleDateFormat("yyyyMMdd-HHmmss", Locale.CHINA)
                     .format(new Date()) + ".png";
-            File file = new File(Environment.getExternalStorageDirectory(), filename);
+            File file = new File(takePhotoDir, filename);
             mCurrentPhotoPath = file.getAbsolutePath();
 
             Uri fileUri = FileProvider7.getUriForFile(mActivity, file);
-
             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+            takePictureIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             mActivity.startActivityForResult(takePictureIntent, REQUEST_CODE_TAKE_PHOTO);
         }
     }
@@ -144,6 +144,9 @@ public class HeadImgSetHelper {
         intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(mCropImageFile));
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
         intent.putExtra("noFaceDetection", true);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        }
         mActivity.startActivityForResult(intent, REQ_CROP);
     }
 
@@ -176,8 +179,9 @@ public class HeadImgSetHelper {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == REQ_PERMISSION_CODE_TAKE_PHOTO) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                takePhotoNoCompress(fileName);
+                takePhotoNoCompress();
             } else {
+                dispatchOnSetFaild();
             }
         }
     }
@@ -189,8 +193,18 @@ public class HeadImgSetHelper {
             }else if(requestCode == REQ_SELECT_PHOTO){
                 crop(handleImage(data));
             }else if(requestCode == REQ_CROP){
-
+                dispatchOnCropSuccess(new File(photoPath));
             }
+        }
+    }
+
+    //删除拍照产生的中间文件
+    private void deleteTakePhoto(File file){
+        if(file.isDirectory()){
+            File[] fs = file.listFiles();
+            for(File file1 : fs)deleteTakePhoto(file1);
+        }else{
+            file.delete();
         }
     }
 
@@ -198,12 +212,14 @@ public class HeadImgSetHelper {
         if(mListener != null){
             mListener.onCropSuccess(file);
         }
+        deleteTakePhoto(new File(takePhotoDir));
     }
 
     private void dispatchOnSetFaild(){
         if(mListener != null){
             mListener.onSetFaild();
         }
+        deleteTakePhoto(new File(takePhotoDir));
     }
 
     public interface SetListener{

@@ -24,13 +24,13 @@ public class AppUpdateHelper {
     private Activity mActivity;
     private String apkPath;
 
-    private HeadImgSetHelper.SetListener mListener;
+    private ImgSetHelper.SetListener mListener;
 
     public AppUpdateHelper(Activity activity) {
         mActivity = activity;
     }
 
-    public void setListener(HeadImgSetHelper.SetListener listener) {
+    public void setListener(ImgSetHelper.SetListener listener) {
         this.mListener = listener;
     }
 

@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.fastproject.demo.ui.MVPTestActivity;
+import com.fastproject.demo.ui.NumTextSwitcherActivity;
 import com.fastproject.demo.ui.TestGeneratectivity;
 import com.fastproject.demo.ui.TestScanActivity;
 import com.sunday.common.activity.BaseActivity;
@@ -19,7 +20,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     private static final int REQUEST_CODE_QRCODE_PERMISSIONS = 1;
 
-    Button mMvpBtn, mQrcodebtn, mGQrcodebtn;
+    Button mMvpBtn, mQrcodebtn, mGQrcodebtn, mNumBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mMvpBtn=findViewById(R.id.mvp_btn);
         mQrcodebtn=findViewById(R.id.qrcode_btn);
         mGQrcodebtn=findViewById(R.id.gqrcode_btn);
+        mNumBtn=findViewById(R.id.num_btn);
     }
 
     @Override
@@ -39,6 +41,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mMvpBtn.setOnClickListener(this);
         mQrcodebtn.setOnClickListener(this);
         mGQrcodebtn.setOnClickListener(this);
+        mNumBtn.setOnClickListener(this);
     }
 
     @Override
@@ -57,6 +60,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 break;
             case R.id.gqrcode_btn:
                 openActivity(TestGeneratectivity.class);
+                break;
+            case R.id.num_btn:
+                openActivity(NumTextSwitcherActivity.class);
                 break;
 
         }

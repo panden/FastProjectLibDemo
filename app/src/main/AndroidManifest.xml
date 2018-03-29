@@ -3,7 +3,7 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="com.fastproject.demo">
 
-    <uses-sdk tools:overrideLibrary="cn.bingoogolapple.photopicker,cn.bingoogolapple.androidcommon.adapter" />
+    <uses-sdk tools:overrideLibrary="cn.bingoogolapple.photopicker,cn.bingoogolapple.androidcommon.adapter"/>
 
     <application
         android:allowBackup="true"
@@ -21,12 +21,12 @@
         </activity>
         <activity android:name=".ui.MVPTestActivity">
         </activity>
-
-        <activity android:name=".ui.TestScanActivity" />
-
+        <activity android:name=".ui.TestScanActivity"/>
         <activity
             android:name=".ui.TestGeneratectivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.NumTextSwitcherActivity">
+        </activity>
     </application>
 
 </manifest>

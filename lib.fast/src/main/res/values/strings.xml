@@ -2,16 +2,11 @@
     <string name="app_name">Library</string>
     <string name="error_view_click_to_refresh">点击屏幕,重新加载</string>
     <string name="error_view_no_data">暂无内容</string>
-    <string name="error_view_no_data_collect">抱歉，客官你还没有收藏</string>
-    <string name="error_view_no_data_order">抱歉，客官你还没有订单</string>
     <string name="error_view_loading">加载中…</string>
     <string name="error_view_load_error_click_to_refresh">内容加载失败\r\n点击重新加载</string>
     <string name="error_view_network_error_click_to_refresh">没有可用的网络</string>
-    <string name="tip_network_error">没有可用的网络</string>
-    <string name="qr_scan_tips">将二维码/条码放入框内，即可自动扫描</string>
-    <string name="version_unknown">版本未知</string>
-    <string name="folder_all">所有照片</string>
-    <string name="preview">预览</string>
-    <string name="msg_no_camera">没有系统相机</string>
-    <string name="msg_amount_limit">已经达到最高选择数量</string>
+
+    <!--WheelView-->
+    <string name="j_pickerview_cancel">取消</string>
+    <string name="j_pickerview_submit">确定</string>
 </resources>

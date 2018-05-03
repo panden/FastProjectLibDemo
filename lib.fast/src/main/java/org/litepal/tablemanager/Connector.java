@@ -43,7 +43,8 @@ import java.io.File;
  */
 public class Connector {
 
-	private static String sDBPassword;
+	//数据库访问的密码
+	private static String sDBPassword = "";
 
 	/**
 	 * The quote of LitePalHelper.

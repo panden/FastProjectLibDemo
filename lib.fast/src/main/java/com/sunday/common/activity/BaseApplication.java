@@ -47,6 +47,9 @@ public abstract class BaseApplication extends LitePalApplication implements Thre
     private void onAppInit() {
         instance = this;
 
+        //设置数据库访问的密码
+        initialize(this, getBuildConfig().getDBPassword());
+
         //网络框架初始化
         HttpFactory.initFactory(this, getBuildConfig().getBaseUrl());
 

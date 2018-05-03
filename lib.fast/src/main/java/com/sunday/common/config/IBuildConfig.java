@@ -31,4 +31,7 @@ public interface IBuildConfig {
 
     /**获取App名称*/
     String getAppName(Context context);
+
+    /**获取数据库的密码*/
+    String getDBPassword();
 }

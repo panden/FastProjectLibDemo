@@ -34,8 +34,8 @@ dependencies {
 
     compile files('libs/json_simple-1.1.jar')
     compile 'com.android.support:multidex:1.0.0'
-    /**litepal数据库*/
-    compile files('libs/litepal-1.6.1.jar')
+    //数据库加密三方库
+    compile 'net.zetetic:android-database-sqlcipher:3.5.9'
     //网络请求库
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
 

@@ -1,6 +1,9 @@
 package com.sunday.common.utils;
 
+import android.support.annotation.StringRes;
 import android.text.TextUtils;
+
+import com.sunday.common.activity.BaseApplication;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -210,5 +213,18 @@ public class StringUtils {
         return str + result.toString();
     }
 
+    /**
+     * 获取字符串资源
+     */
+    public static String getStrFromRes(@StringRes int res) {
+        return BaseApplication.getInstance().getString(res);
+    }
+
+    /**
+     * 获取格式化字符串资源
+     */
+    public static String getStrFormatForRes(@StringRes int res, Object... args) {
+        return BaseApplication.getInstance().getString(res, args);
+    }
 
 }

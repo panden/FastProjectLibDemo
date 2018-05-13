@@ -1,6 +1,6 @@
 package com.sunday.common.http;
 
-import com.sunday.common.error.ApiError;
+import com.sunday.common.error.ErrorState;
 import com.sunday.common.error.ErrorEngine;
 
 import io.reactivex.Observer;
@@ -60,7 +60,7 @@ public abstract class BaseObservable<T> implements Observer<T> {
     public abstract void onResponse(T data);
 
     /**请求异常会回调该接口*/
-    public abstract void onFaild(ApiError error);
+    public abstract void onFaild(ErrorState error);
 
     //执行完之后就解除订阅
     private void unSubscrib(){
@@ -80,8 +80,8 @@ public abstract class BaseObservable<T> implements Observer<T> {
         }
     }
 
-    /**回调listener.onFaild(ApiError)*/
-    protected void onListenerFaild(ApiError error){
+    /**回调listener.onFaild(ErrorState)*/
+    protected void onListenerFaild(ErrorState error){
         if(mResponseListener != null){
             mResponseListener.onFaild(error);
         }

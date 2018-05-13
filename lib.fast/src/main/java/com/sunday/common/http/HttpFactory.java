@@ -3,19 +3,20 @@ package com.sunday.common.http;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import com.sunday.common.http.intercepts.CacheHeadInterceptor;
+import com.sunday.common.activity.BaseApplication;
 import com.sunday.common.http.intercepts.CharsetInterceptor;
+import com.sunday.common.http.intercepts.HttpCodeInterceptor;
+import com.sunday.common.http.intercepts.OkHttpCacheHeadInterceptor;
+import com.sunday.common.http.intercepts.PostCacheInterceptor;
 import com.sunday.common.utils.FileUtils;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Cache;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -26,16 +27,22 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HttpFactory {
 
+    private final String TAG = "OkHttp_Factory ";
+
+    private Interceptor[] mInterceptors;
     private Retrofit mRetrofit;
     private static HttpFactory instance;
     private static final long CACHE_SIZE = 1024 * 1024 * 10;//缓存的文件大小
-    private static final int CONNECT_TIME = 10;//连接时长为10s
-    private static final int READ_TIME_OUT = 15;//读取超时时长为15s
-    private static final int WRITE_TIME_OUT = 20;//写入超时时长为20s
-    private List<Interceptor> mInterceptors;//okhttp的拦截器
+    private static final int CONNECT_TIMEOUT = 10;//连接超时10s
+    private static final int READ_TIMEOUT = 15;//读取超时15s
+    private static final int WRITE_TIMEOUT = 20;//写入超时20s
 
     public static void initFactory(@NonNull Context context, @NonNull String baseUrl) {
         instance = new HttpFactory(context, baseUrl);
+    }
+
+    public static void initFactory(@NonNull Context context, @NonNull String baseUrl, Interceptor... interceptors) {
+        instance = new HttpFactory(context, baseUrl, interceptors);
     }
 
     public static HttpFactory instance() {
@@ -45,8 +52,10 @@ public class HttpFactory {
     }
 
     private HttpFactory(Context context, String baseUrl, Interceptor... interceptors) {
-        mInterceptors = new ArrayList<>();
-        if(interceptors != null)mInterceptors.addAll(Arrays.asList(interceptors));
+        this.mInterceptors = interceptors;
+        if (baseUrl != null && !baseUrl.endsWith("/")) {
+            baseUrl += "/";
+        }
         mRetrofit = initRetrofit(context, baseUrl);
     }
 
@@ -59,26 +68,34 @@ public class HttpFactory {
                 .build();
     }
 
-    /**创建接口服务*/
     public <T> T createApiService(Class<T> service) {
         return mRetrofit.create(service);
     }
 
     private OkHttpClient genericClient(final Context context) {
         File cacheFile = FileUtils.getAppHttpCacheDir(context);
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT);
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         Cache cache = new Cache(cacheFile, CACHE_SIZE);
-        OkHttpClient.Builder build = new OkHttpClient.Builder()
-                .connectTimeout(CONNECT_TIME, TimeUnit.SECONDS)
-                .readTimeout(READ_TIME_OUT, TimeUnit.SECONDS)
-                .writeTimeout(WRITE_TIME_OUT, TimeUnit.SECONDS)
-                .cache(cache)
-                .addNetworkInterceptor(new CacheHeadInterceptor(context))
-                .addInterceptor(new CharsetInterceptor());
+        OkHttpClient.Builder builder = new OkHttpClient.Builder()
+                .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
+                .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
+                .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS);
 
-        for(Interceptor interceptor : mInterceptors){
-            build.addInterceptor(interceptor);
+        if (mInterceptors != null) {
+            for (Interceptor interceptor : mInterceptors) {
+                builder.addInterceptor(interceptor);
+            }
         }
-        OkHttpClient httpClient = build.build();
+        builder.cache(cache)
+                .addInterceptor(new HttpCodeInterceptor())//错误码拦截器
+                .addInterceptor(new PostCacheInterceptor(context))//post缓存拦截器
+                .addInterceptor(new OkHttpCacheHeadInterceptor(context))//get缓存拦截器
+                .addInterceptor(new CharsetInterceptor());//编码拦截器
+        if(BaseApplication.getInstance().getBuildConfig().isDebug()){
+            builder.addInterceptor(loggingInterceptor);
+        }
+        OkHttpClient httpClient = builder.build();
         return httpClient;
     }
 }

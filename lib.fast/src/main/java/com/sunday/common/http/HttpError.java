@@ -1,12 +1,12 @@
 package com.sunday.common.http;
 
-import com.sunday.common.error.ApiError;
+import com.sunday.common.error.ErrorState;
 
 /**
  * Created by siwei on 2018/3/19.
  */
 
-public enum HttpError implements ApiError {
+public enum HttpError implements ErrorState {
 
     /**未知异常*/
     UNKnow(1001, "未知异常"),

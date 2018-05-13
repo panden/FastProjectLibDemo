@@ -39,6 +39,7 @@ dependencies {
     compile 'net.zetetic:android-database-sqlcipher:3.5.9'
     //网络请求库
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.1.2'
 
     //LeakCanary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'

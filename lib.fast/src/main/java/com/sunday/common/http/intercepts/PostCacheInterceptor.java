@@ -35,11 +35,8 @@ import static okhttp3.internal.Util.UTC;
 public class PostCacheInterceptor implements Interceptor {
 
     private static final String TAG = "OkHttp_PostCacheInterceptor ";
-    /*private static final int MOBILE_ENABLE_MAX_AGE = 6 * 60 * 60;//有网络时 设置缓存超时时间6个小时
-    private static final int MOBILE_UNENABLE_MAX_STALE = 30 * 60 * 60 * 24;//无网络时，设置超时为30天*/
-
-    private static final int MOBILE_ENABLE_MAX_AGE = 1 * 60;//有网络时 设置缓存超时时间6个小时
-    private static final int MOBILE_UNENABLE_MAX_STALE = 2 * 60;//无网络时，设置超时为30天
+    private static final int MOBILE_ENABLE_MAX_AGE = 6 * 60 * 60;//有网络时 设置缓存超时时间6个小时
+    private static final int MOBILE_UNENABLE_MAX_STALE = 30 * 60 * 60 * 24;//无网络时，设置超时为30天
 
     /**
      * Most websites serve cookies in the blessed format. Eagerly create the parser to ensure such

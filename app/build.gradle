@@ -13,8 +13,8 @@ android {
     sourceSets {
         main {
             res.srcDirs = [
-                    'src/main/res/layouts/mvp',
-                    'src/main/res/layouts/qrcode',
+                    'src/main/res-mvp',
+                    'src/main/res-qrcode',
                     'src/main/res'
             ]
         }
@@ -33,13 +33,12 @@ dependencies {
     //noinspection GradleCompatible
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    compile project(':lib.fast')
-    compile project(':lib.qrcode')
+    compile 'com.android.support:design:26.0.0-alpha1'
     compile 'pub.devrel:easypermissions:1.0.1'
     compile 'cn.bingoogolapple:bga-photopicker:1.2.8@aar'
     compile 'cn.bingoogolapple:bga-baseadapter:1.2.9@aar'
+    compile project(':lib.fast')
     compile project(':lib.widget')
+    compile project(':lib.qrcode')
+    implementation project(':lib.ble')
 }

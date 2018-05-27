@@ -6,7 +6,7 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.sunday.common.http.cache.CacheType;
 import com.sunday.common.http.cache.Catch.CacheManager;
-import com.sunday.common.logger.Logger;
+import com.sunday.common.log.Lg;
 
 import java.io.IOException;
 import java.lang.reflect.Constructor;
@@ -83,7 +83,7 @@ public class PostCacheInterceptor implements Interceptor {
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Logger.d(TAG + "PostCacheInterceptor exception:%s", e.getMessage());
+                    Lg.d(TAG + "PostCacheInterceptor exception:%s", e.getMessage());
                     response = tryGetCacheResponse(request, response);
                     if (response == null) {
                         return chain.proceed(request);
@@ -119,7 +119,7 @@ public class PostCacheInterceptor implements Interceptor {
         response = cleanPragmaHead(response);
         Response.Builder builder = response.newBuilder();
         if (!responseOnlyCache(response)) {
-            Logger.d(TAG + " add deline cache head");
+            Lg.d(TAG + " add deline cache head");
             builder.addHeader("Cache-Control", "public, only-if-cached, max-stale=" + MOBILE_UNENABLE_MAX_STALE).build();
         }
         return builder.build();
@@ -133,7 +133,7 @@ public class PostCacheInterceptor implements Interceptor {
         response = cleanPragmaHead(response);
         Response.Builder builder = response.newBuilder();
         if (!responseHasCacheContral(response)) {
-            Logger.d(TAG + "add online cache head");
+            Lg.d(TAG + "add online cache head");
             builder.addHeader("Cache-Control", "public, max-age=" + MOBILE_ENABLE_MAX_AGE);
         }
         if (!responseHasDate(response)) {//如果未添加响应时间
@@ -158,7 +158,7 @@ public class PostCacheInterceptor implements Interceptor {
             if (cacheResponse.code() != 504) {//数据未超时
                 if (!responseOnlyCache(cacheResponse)) {
                     //缓存响应中已带有only-if-cached缓存头信息,则之前已经缓存过一次了,就不在缓存,否则进行缓存
-                    Logger.d(TAG + "not find only-if-cached head and cache response");
+                    Lg.d(TAG + "not find only-if-cached head and cache response");
                     cacheResponse = addDelineCacheHead(cacheResponse);
                     cacheResponse = cacheAndNewResponse(request, cacheResponse);
                 }
@@ -179,7 +179,7 @@ public class PostCacheInterceptor implements Interceptor {
             Date date = HttpDate.parse(dateHead);
             long timeout = responseOnlyCache(response) ? MOBILE_UNENABLE_MAX_STALE : MOBILE_ENABLE_MAX_AGE;
             if (System.currentTimeMillis() > date.getTime() + timeout) {//数据超时,返回504
-                Logger.d(TAG + "response gateway timeout, remove body and head cache.");
+                Lg.d(TAG + "response gateway timeout, remove body and head cache.");
                 CacheManager.getInstance(context).removeCache(getCacheResponseKey(request));
                 CacheManager.getInstance(context).removeCache(getCacheHeadKey(request));
                 return new Response.Builder()
@@ -273,7 +273,7 @@ public class PostCacheInterceptor implements Interceptor {
         String responBodyStr = TextUtils.isEmpty(responseBody) ? "" : responseBody;
         //存缓存，以链接+参数进行MD5编码为KEY存
         CacheManager.getInstance(context).setCache(getCacheResponseKey(request), responBodyStr);
-        Logger.i(TAG + "--> Push Body Cache: %s :Success", url);
+        Lg.i(TAG + "--> Push Body Cache: %s :Success", url);
     }
 
 
@@ -281,12 +281,12 @@ public class PostCacheInterceptor implements Interceptor {
      * 读取缓存响应
      */
     private Response getCacheResponse(Request request) {
-        Logger.i(TAG + "--> Try to Get Body Cache --------");
+        Lg.i(TAG + "--> Try to Get Body Cache --------");
         String url = request.url().url().toString();
         String params = getPostParams(request);
         String cacheStr = CacheManager.getInstance(context).getCache(getCacheResponseKey(request));//取缓存，以链接+参数进行MD5编码为KEY取
         if (cacheStr == null) {
-            Logger.i(TAG + "<-- Get Body Cache Failure --------");
+            Lg.i(TAG + "<-- Get Body Cache Failure --------");
             return null;
         }
         Response response = new Response.Builder()
@@ -297,8 +297,8 @@ public class PostCacheInterceptor implements Interceptor {
                 .protocol(Protocol.HTTP_1_0)
                 .build();
         long useTime = System.currentTimeMillis() - oldTime;
-        Logger.i(TAG + "<-- Get Body Cache: code:%s message:%s url:%s (%sms)", response.code(), response.message(), url, useTime);
-        Logger.i(TAG + cacheStr);
+        Lg.i(TAG + "<-- Get Body Cache: code:%s message:%s url:%s (%sms)", response.code(), response.message(), url, useTime);
+        Lg.i(TAG + cacheStr);
         return response;
     }
 
@@ -319,22 +319,22 @@ public class PostCacheInterceptor implements Interceptor {
         if (request == null || responseHead == null) return;
         String url = request.url().url().toString();
         CacheManager.getInstance(context).setCache(getCacheHeadKey(request), responseHead);
-        Logger.i(TAG + "--> Push Head Cache: %s :Success", url);
+        Lg.i(TAG + "--> Push Head Cache: %s :Success", url);
     }
 
     /**
      * 读取缓存的请求头
      */
     private Headers getCacheHeaders(Request request) {
-        Logger.i(TAG + "--> Try to Get Cache Headers   --------");
+        Lg.i(TAG + "--> Try to Get Cache Headers   --------");
         if (request == null) return new Headers.Builder().build();
         String headersJson = CacheManager.getInstance(context).getCache(getCacheHeadKey(request));
         String url = request.url().url().toString();
         if (headersJson == null) {
-            Logger.i(TAG + "<-- Get Headers Cache Failure --------");
+            Lg.i(TAG + "<-- Get Headers Cache Failure --------");
         } else {
-            Logger.i(TAG + "<-- Get Headers Cache url:%s", url);
-            Logger.i(TAG + new String(headersJson));
+            Lg.i(TAG + "<-- Get Headers Cache url:%s", url);
+            Lg.i(TAG + new String(headersJson));
         }
         return getResponseHeadsByJson(headersJson);
     }
@@ -419,10 +419,10 @@ public class PostCacheInterceptor implements Interceptor {
                 Constructor<Headers> headersConstructor = Headers.class.getDeclaredConstructor(String[].class);
                 headersConstructor.setAccessible(true);
                 headers = headersConstructor.newInstance(new Object[]{namesAndValues});
-                Logger.i(TAG + "<-- newInstance Headers Cache-Control:%s", headers.get("Cache-Control"));
+                Lg.i(TAG + "<-- newInstance Headers Cache-Control:%s", headers.get("Cache-Control"));
             } catch (Exception e) {
                 e.printStackTrace();
-                Logger.i(TAG + "<-- newInstance Headers Exception:%s", e.getMessage());
+                Lg.i(TAG + "<-- newInstance Headers Exception:%s", e.getMessage());
             }
         }
         return headers;

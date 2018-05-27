@@ -22,8 +22,8 @@ import retrofit2.HttpException;
 public class ErrorEngine {
 
     /**把Http异常转换为自定义的错误*/
-    public static ErrorState handleHttpException(Throwable e) {
-        ErrorState apiError;
+    public static IErrorStatus handleHttpException(Throwable e) {
+        IErrorStatus apiError;
         if (e instanceof HttpException || e instanceof org.apache.http.HttpException) {
             //HTTP访问错误
             apiError = HttpError.HttpError;

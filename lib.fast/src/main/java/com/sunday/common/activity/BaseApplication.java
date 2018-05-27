@@ -11,7 +11,8 @@ import com.sunday.common.activity.callback.ActivityLifeListener;
 import com.sunday.common.cache.ACache;
 import com.sunday.common.config.IBuildConfig;
 import com.sunday.common.http.HttpFactory;
-import com.sunday.common.logger.Logger;
+import com.sunday.common.log.Lg;
+import com.sunday.common.log.XLogger;
 
 import org.litepal.LitePalApplication;
 
@@ -58,7 +59,7 @@ public abstract class BaseApplication extends LitePalApplication implements Thre
         registerActivityLifecycleCallbacks(mLifeListener);
 
         //初始化Logger
-        Logger.init(getBuildConfig().getAppName(this)).hideThreadInfo().setMethodCount(3).setMethodOffset(2);
+        Lg.setLog(XLogger.class, getBuildConfig().getAppName(this), getBuildConfig().isDebug());
 
         //异常捕获
         Thread.setDefaultUncaughtExceptionHandler(this);

@@ -30,4 +30,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Num Text Switcher"/>
+
+    <Button
+        android:id="@+id/open_ble_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Open Bluetooth"/>
 </LinearLayout>

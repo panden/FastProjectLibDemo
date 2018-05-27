@@ -1,12 +1,8 @@
 package com.sunday.common.mvp;
 
-import android.database.sqlite.SQLiteDatabase;
-
 import com.sunday.common.activity.BaseApplication;
 import com.sunday.common.cache.ACache;
 import com.sunday.common.http.HttpFactory;
-
-import org.litepal.LitePal;
 
 /**
  * Created by siwei on 2018/3/13.
@@ -25,14 +21,6 @@ public class ModelImpl implements IModel {
      */
     protected ACache getCache() {
         return BaseApplication.getInstance().getCache();
-    }
-
-    /**
-     * 获取数据库操作(LitePal:https://www.jianshu.com/p/bc68e763c7a2)
-     * 数据库映射关系在asset/litepal.xml中
-     */
-    protected SQLiteDatabase getDB() {
-        return LitePal.getDatabase();
     }
 
     @Override

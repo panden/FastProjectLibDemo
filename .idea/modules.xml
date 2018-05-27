@@ -5,8 +5,11 @@
       <module fileurl="file://$PROJECT_DIR$/FastProjectLibDemo.iml" filepath="$PROJECT_DIR$/FastProjectLibDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib.ble/lib.ble.iml" filepath="$PROJECT_DIR$/lib.ble/lib.ble.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib.chart/lib.chart.iml" filepath="$PROJECT_DIR$/lib.chart/lib.chart.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib.fast/lib.fast.iml" filepath="$PROJECT_DIR$/lib.fast/lib.fast.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib.jpush/lib.jpush.iml" filepath="$PROJECT_DIR$/lib.jpush/lib.jpush.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib.qrcode/lib.qrcode.iml" filepath="$PROJECT_DIR$/lib.qrcode/lib.qrcode.iml" />
+      <module fileurl="file://$PROJECT_DIR$/lib.sqlite/lib.sqlite.iml" filepath="$PROJECT_DIR$/lib.sqlite/lib.sqlite.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib.umshare/lib.umshare.iml" filepath="$PROJECT_DIR$/lib.umshare/lib.umshare.iml" />
       <module fileurl="file://$PROJECT_DIR$/lib.widget/lib.widget.iml" filepath="$PROJECT_DIR$/lib.widget/lib.widget.iml" />
     </modules>

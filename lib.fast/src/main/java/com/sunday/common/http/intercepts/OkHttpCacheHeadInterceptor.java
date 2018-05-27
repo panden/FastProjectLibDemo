@@ -2,7 +2,7 @@ package com.sunday.common.http.intercepts;
 
 import android.content.Context;
 
-import com.sunday.common.logger.Logger;
+import com.sunday.common.log.Lg;
 import com.sunday.common.utils.NetworkUtils;
 
 import java.io.IOException;
@@ -57,7 +57,7 @@ public class OkHttpCacheHeadInterceptor implements Interceptor {
                         .header("Cache-Control", "public, only-if-cached, max-stale=" + MOBILE_UNENABLE_MAX_STALE)
                         .build();
             }
-            Logger.d("okhttp response.code=" + response.code());
+            Lg.d("okhttp response.code=" + response.code());
             //缓存信息未读取到
         } else {
             response = chain.proceed(request);

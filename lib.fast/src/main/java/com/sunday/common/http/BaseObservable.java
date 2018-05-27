@@ -2,6 +2,7 @@ package com.sunday.common.http;
 
 import com.sunday.common.error.ErrorState;
 import com.sunday.common.error.ErrorEngine;
+import com.sunday.common.error.IErrorStatus;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.CompositeDisposable;
@@ -60,7 +61,7 @@ public abstract class BaseObservable<T> implements Observer<T> {
     public abstract void onResponse(T data);
 
     /**请求异常会回调该接口*/
-    public abstract void onFaild(ErrorState error);
+    public abstract void onFaild(IErrorStatus error);
 
     //执行完之后就解除订阅
     private void unSubscrib(){

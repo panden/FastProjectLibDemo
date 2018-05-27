@@ -6,9 +6,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.fastproject.demo.ui.MVPTestActivity;
-import com.fastproject.demo.ui.NumTextSwitcherActivity;
 import com.fastproject.demo.ui.TestGeneratectivity;
 import com.fastproject.demo.ui.TestScanActivity;
+import com.lib.fast.helper.OpenBleHelper;
 import com.sunday.common.activity.BaseActivity;
 
 import java.util.List;
@@ -20,7 +20,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
     private static final int REQUEST_CODE_QRCODE_PERMISSIONS = 1;
 
-    Button mMvpBtn, mQrcodebtn, mGQrcodebtn, mNumBtn;
+    Button mMvpBtn, mQrcodebtn, mGQrcodebtn, mNumBtn, mOpenBleBtn;
+    OpenBleHelper mOpenBleHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mQrcodebtn=findViewById(R.id.qrcode_btn);
         mGQrcodebtn=findViewById(R.id.gqrcode_btn);
         mNumBtn=findViewById(R.id.num_btn);
+        mOpenBleBtn=findViewById(R.id.open_ble_btn);
     }
 
     @Override
@@ -42,11 +44,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         mQrcodebtn.setOnClickListener(this);
         mGQrcodebtn.setOnClickListener(this);
         mNumBtn.setOnClickListener(this);
+        mOpenBleBtn.setOnClickListener(this);
     }
 
     @Override
     protected void initData() {
         getTitleBar().setTitle("Fast Project");
+        mOpenBleHelper = new OpenBleHelper(this);
+        mOpenBleHelper.setListener(mListener);
     }
 
     @Override
@@ -62,11 +67,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
                 openActivity(TestGeneratectivity.class);
                 break;
             case R.id.num_btn:
-                openActivity(NumTextSwitcherActivity.class);
                 break;
-
+            case R.id.open_ble_btn:
+                mOpenBleHelper.openBle();
+                break;
         }
     }
+
+    OpenBleHelper.OnBleStatusChangedListener mListener = new OpenBleHelper.OnBleStatusChangedListener() {
+        @Override
+        public void onBleOpened() {
+            toast("Bluetooth opened");
+        }
+
+        @Override
+        public void onBleClosed() {
+            toast("Bluetooth closed");
+        }
+    };
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -87,5 +105,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         if (!EasyPermissions.hasPermissions(this, perms)) {
             EasyPermissions.requestPermissions(this, "扫描二维码需要打开相机和散光灯的权限", REQUEST_CODE_QRCODE_PERMISSIONS, perms);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }

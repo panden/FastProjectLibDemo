@@ -5,8 +5,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
 import com.sunday.common.cache.DiskLruCache;
-import com.sunday.common.logger.Logger;
 import com.sunday.common.utils.FileUtils;
+import com.sunday.common.widgets.phoenix.util.Logger;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

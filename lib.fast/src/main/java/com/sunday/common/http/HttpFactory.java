@@ -8,6 +8,7 @@ import com.sunday.common.http.intercepts.CharsetInterceptor;
 import com.sunday.common.http.intercepts.HttpCodeInterceptor;
 import com.sunday.common.http.intercepts.OkHttpCacheHeadInterceptor;
 import com.sunday.common.http.intercepts.PostCacheInterceptor;
+import com.sunday.common.log.Lg;
 import com.sunday.common.utils.FileUtils;
 
 import java.io.File;
@@ -74,7 +75,12 @@ public class HttpFactory {
 
     private OkHttpClient genericClient(final Context context) {
         File cacheFile = FileUtils.getAppHttpCacheDir(context);
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT);
+        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+            @Override
+            public void log(String message) {
+                Lg.d(message);
+            }
+        });
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
         Cache cache = new Cache(cacheFile, CACHE_SIZE);
         OkHttpClient.Builder builder = new OkHttpClient.Builder()

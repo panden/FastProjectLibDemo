@@ -48,6 +48,7 @@ public class FileUtils {
         return file;
     }
 
+
     /**判断是否有sd卡*/
     public static boolean hasSdCard(Context context){
         return Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
